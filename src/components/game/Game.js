@@ -11,8 +11,8 @@ const Game = () => {
         xIsNext: true,
         stepNumber: 0,
     })
-    // console.log(state.history);
-    // console.log(state.stepNumber);
+    console.log("state history Game:",state.history);
+    console.log("state stepNumber Game:",state.stepNumber);
     // console.log(calculateWinner(state.history[state.stepNumber]))
     const winner = calculateWinner(state.history[state.stepNumber]);
     let status = winner ? 'Winner ' + winner : 'Next player: ' + (state.xIsNext ? 'X' : 'O');
@@ -24,7 +24,7 @@ const Game = () => {
             'Go to game start';
         return (
             <li key={move}>
-                <button onClick={(move) => dispatch({
+                <button onClick={() => dispatch({
                     type: 'jumpTo',
                     setStep: move
                 })}>

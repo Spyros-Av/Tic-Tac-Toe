@@ -17,10 +17,13 @@ const reducer = (state, action) => {
                 xIsNext: !state.xIsNext,
             }
         case 'jumpTo':
+            const jumphHistory = state.history.slice(0, action.setStep + 1);
+            console.log("jumpHistory",jumphHistory.length);
+            console.log("setStep", action.setStep);
             return {
-                history: state.history[action.setStep + 1],
+                history: jumphHistory, 
                 stepNumber: action.setStep,
-                xIsNext: (action.setStep % 2 === 0)
+                xIsNext: (action.setStep % 2) === 0
             }
 
         default:
