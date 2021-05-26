@@ -1,10 +1,9 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer } from 'react';
 import Game from './components/game/Game';
-import Board from './components/board/Board';
-import Square from './components/square/Square';
 import calculateWinner from './libraries/tictactoe';
+import { appContext } from './appContext';
 
-export const CurrentState = createContext();
+
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -23,11 +22,9 @@ const reducer = (state, action) => {
                 xIsNext: !state.xIsNext,
             }
         case 'jumpTo':
-            const jumphHistory = state.history.slice(0, action.setStep + 1);
-            console.log("jumpHistory", jumphHistory.length);
-            console.log("setStep", action.setStep);
+            const jumpHistory = state.history.slice(0, action.setStep + 1);
             return {
-                history: jumphHistory,
+                history: jumpHistory,
                 stepNumber: action.setStep,
                 xIsNext: (action.setStep % 2) === 0
             }
@@ -47,14 +44,11 @@ function App() {
 
     return (
         <div className="App">
-            <CurrentState.Provider value= {{currentState: state, currentDispatch: dispatch}}>
-                {state}
+            <appContext.Provider value={{ state, dispatch }}>
                 <Game />
-                <Board />
-                <Square />
-            </CurrentState.Provider>
+            </appContext.Provider>
         </div>
     )
 }
 
-export default App
+export default App;
